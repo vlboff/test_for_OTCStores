@@ -9,10 +9,17 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
 
-const count = ref(0)
+const props = defineProps({
+  count: {
+    type: Number,
+    required: true,
+  }
+})
+
+const emit = defineEmits(["update_counter"]);
+
 const click = () => {
-  count.value++
+  emit("update_counter", props.count + 1);
 }
 </script>

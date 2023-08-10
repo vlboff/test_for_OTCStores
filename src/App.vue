@@ -28,8 +28,8 @@
 
     <h2>Задача 2. Связь компонентов</h2>
     <div class="bordered-two">
-      <the-counter />
-      <the-clicker />
+      <the-counter :count="count" @update_counter="updateCount"/>
+      <the-clicker :count="count" @update_counter="updateCount"/>
     </div>
     <p>
       Оптимальным образом модифицировать код проекта так,
@@ -39,11 +39,11 @@
 
     <h2>Задача 3. Модификация вывода</h2>
     <div class="bordered-two">
-      <the-counter>
+      <the-counter :count="count" @update_counter="updateCount">
         <template #default>
           <p>
             Count:
-            <input type="text" readonly>
+            <input type="text" v-model="count" readonly>
           </p>
         </template>
       </the-counter>
@@ -58,9 +58,16 @@
   </div>
 </template>
 <script setup>
+import {ref} from "vue";
 import TheClicker from "./components/TheClicker.vue";
 import TheCounter from "./components/TheCounter.vue";
 import TheLogo from "./components/TheLogo.vue";
+
+const count = ref(0);
+
+const updateCount = (event) => {
+  count.value = event;
+};
 
 const logos = [
     "https://img.otcstores.com/4a3/leaf-4a36b846ec.png",
@@ -103,7 +110,8 @@ ul {
 .logo-container {
   max-width: 600px;
   margin: 0 auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .bordered-two {
@@ -117,5 +125,17 @@ ul {
 }
 a {
   color: #42b983;
+}
+
+@media (min-width: 600px) {
+  .logo-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .logo-container {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }
 </style>
