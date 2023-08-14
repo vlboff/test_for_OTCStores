@@ -4,22 +4,22 @@
     <slot name="default">
       <p>Count: {{ count }}</p>
     </slot>
-    <button @click="click">Click me</button>
+    <button @click="increment">Click me</button>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+const emit = defineEmits(["updateCounter"]);
+const count = ref(0);
 
-const props = defineProps({
-  count: {
-    type: Number,
-    required: true,
-  }
-})
-
-const emit = defineEmits(["update_counter"]);
-
-const click = () => {
-  emit("update_counter", props.count + 1);
+const increment = () => {
+  count.value++;
+  emit("updateCounter");
 }
+
+defineExpose({
+  count,
+  increment,
+})
 </script>

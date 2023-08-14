@@ -6,16 +6,9 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  count: {
-    type: Number,
-    required: true,
-  }
-})
-
-const emit = defineEmits(["update_counter"]);
+const emit = defineEmits(["updateCounter"]);
 
 const click = () => {
-  emit("update_counter", props.count + 1);
+  emit("updateCounter");
 }
 </script>
