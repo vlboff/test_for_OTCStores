@@ -28,8 +28,8 @@
 
     <h2>Задача 2. Связь компонентов</h2>
     <div class="bordered-two">
-      <the-counter ref="counter" />
-      <the-clicker @update-counter="updateCount"/>
+      <the-counter ref="counter1" @update-counter="updateCount2" />
+      <the-clicker @update-counter="updateCounts"/>
     </div>
     <p>
       Оптимальным образом модифицировать код проекта так,
@@ -39,11 +39,11 @@
 
     <h2>Задача 3. Модификация вывода</h2>
     <div class="bordered-two">
-      <the-counter @update-counter="updateCount">
-        <template #default>
+      <the-counter ref="counter2" @update-counter="updateCount1">
+        <template #default="{ count }">
           <p>
             Count:
-            <input type="text" :value="counter.count" readonly>
+            <input type="text" :value="count" readonly>
           </p>
         </template>
       </the-counter>
@@ -63,10 +63,20 @@ import TheClicker from "./components/TheClicker.vue";
 import TheCounter from "./components/TheCounter.vue";
 import TheLogo from "./components/TheLogo.vue";
 
-const counter = ref(0);
+const counter1 = ref(0);
+const counter2 = ref(0);
 
-const updateCount = () => {
-  counter.value.increment();
+const updateCount1 = () => {
+  counter1.value.simpleIncrement();
+}
+
+const updateCount2 = () => {
+  counter2.value.simpleIncrement();
+}
+
+const updateCounts = () => {
+  counter1.value.simpleIncrement();
+  counter2.value.simpleIncrement();
 }
 
 const logos = [

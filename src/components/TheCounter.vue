@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>TheCounter</h3>
-    <slot name="default">
+    <slot name="default" :count="count">
       <p>Count: {{ count }}</p>
     </slot>
     <button @click="increment">Click me</button>
@@ -18,8 +18,11 @@ const increment = () => {
   emit("updateCounter");
 }
 
+const simpleIncrement = () => {
+  count.value++;
+}
+
 defineExpose({
-  count,
-  increment,
+  simpleIncrement,
 })
 </script>
